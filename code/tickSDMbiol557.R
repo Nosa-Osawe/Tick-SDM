@@ -1383,47 +1383,6 @@ variegatum_2100$summary
 
 library(dplyr)
 
-africa_summaries <- bind_rows(
-  dromedarii_africa1995$summary,
-  dromedarii_africa2040$summary,
-  dromedarii_africa2080$summary,
-  dromedarii_africa2100$summary,
-  
-  anatolicum_africa1995$summary,
-  anatolicum_africa2040$summary,
-  anatolicum_africa2080$summary,
-  anatolicum_africa2100$summary,
-  
-  variegatum_africa1995$summary,
-  variegatum_africa2040$summary,
-  variegatum_africa2080$summary,
-  variegatum_africa2100$summary
-) %>% mutate(Species = ifelse(Species == "Amblyomma variegatum", "A. variegatum", Species))
-
-
-
-africa_summaries$Year <- as.numeric(as.character(africa_summaries$Year))
-
-africa_summaries$Year <-factor(
-  global_summaries$Time,
-  levels = c("1995","2040","2080","2100"),
-  labels = c("Historic","2040","2080","2100")
-)
-ggplot(africa_summaries,
-       aes(x = Year,
-           y = Suitable_area_km2,
-           color = Species,
-           group = Species)) +
-  geom_line(linewidth = 1.3) +
-  geom_point(size = 3) +
-  scale_color_manual(values = c("darkgreen", "orange", "red")) +
-  labs(
-    x = "Year",
-    y = "Suitable Area in Africa (km²)",
-    color = "Ticks"
-  ) + theme_classic()
-
- 
 
 global_summaries = bind_rows(
   
@@ -1474,3 +1433,47 @@ ggplot(global_summaries,
 
 
 
+
+
+africa_summaries <- bind_rows(
+  dromedarii_africa1995$summary,
+  dromedarii_africa2040$summary,
+  dromedarii_africa2080$summary,
+  dromedarii_africa2100$summary,
+  
+  anatolicum_africa1995$summary,
+  anatolicum_africa2040$summary,
+  anatolicum_africa2080$summary,
+  anatolicum_africa2100$summary,
+  
+  variegatum_africa1995$summary,
+  variegatum_africa2040$summary,
+  variegatum_africa2080$summary,
+  variegatum_africa2100$summary
+) %>% mutate(Species = ifelse(Species == "Amblyomma variegatum", "A. variegatum", Species))
+
+
+
+africa_summaries$Year <- as.numeric(as.character(africa_summaries$Year))
+
+africa_summaries$Year <-factor(
+  global_summaries$Time,
+  levels = c("1995","2040","2080","2100"),
+  labels = c("Historic","2040","2080","2100")
+)
+
+ggplot(africa_summaries,
+       aes(x = Year,
+           y = Suitable_area_km2,
+           color = Species,
+           group = Species)) +
+  geom_line(linewidth = 1.3) +
+  geom_point(size = 3) +
+  scale_color_manual(values = c("darkgreen", "orange", "red")) +
+  labs(
+    x = "Year",
+    y = "Suitable Area in Africa (km²)",
+    color = "Ticks"
+  ) + theme_classic()
+
+ 
